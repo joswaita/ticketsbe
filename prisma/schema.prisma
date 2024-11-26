@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum RoleName {
+enum Role {
   Customer
   Admin
   Organizer
@@ -26,7 +26,15 @@ model User {
   lastName    String
   email       String   @unique
   password    String
+  roles       Role[]
   phoneNumber String   @unique
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
+}
+
+model Event {
+  eventId   Int      @id @default(autoincrement())
+  eventName String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
