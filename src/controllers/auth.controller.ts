@@ -5,7 +5,6 @@ import * as jwt from "jsonwebtoken";
 import { jwtSecret } from "../secrets";
 import { BadRequestException } from "../exceptions/badRequest.exception";
 import { ErrorCode } from "../exceptions/root.exception";
-import { UnprocessableEntity } from "../exceptions/validation.exception";
 import { signupSchema } from "../schema/user.schema";
 import { NotFoundException } from "../exceptions/notFound.exception";
 

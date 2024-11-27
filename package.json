@@ -4,6 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "dev": "nodemon --exec ts-node --files src/index.ts",
+    "seed": "ts-node src/seed.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

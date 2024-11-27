@@ -19,6 +19,12 @@ enum Role {
   Organizer
 }
 
+enum EventStatus {
+  CANCELLED
+  AWAIT_LISTING
+  LIST
+}
+
 model User {
   userId      Int      @id @default(autoincrement())
   firstName   String
@@ -28,13 +34,49 @@ model User {
   password    String
   roles       Role[]
   phoneNumber String   @unique
+  events      Event[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
 }
 
 model Event {
-  eventId   Int      @id @default(autoincrement())
-  eventName String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  eventId          Int                @id @default(autoincrement())
+  eventBannerUrl   String
+  eventOrganiser   String
+  eventName        String
+  ticketCategories TicketCategories[]
+  date             eventDate[]
+  longitude        Int?
+  latitude         Int?
+  locationArea     String
+  description      String
+  status           EventStatus?       @default(AWAIT_LISTING)
+  eventCreator     User               @relation(fields: [eventcreatorId], references: [userId])
+  eventcreatorId   Int
+  tickets          Ticket[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+}
+
+model TicketCategories {
+  ticketCategoriesId Int    @id @default(autoincrement())
+  category           String
+  price              Int
+  ticketCategory     Event  @relation(fields: [categoryId], references: [eventId])
+  categoryId         Int
+}
+
+model eventDate {
+  eventDateId Int      @id @default(autoincrement())
+  eventDate   DateTime
+  startTime   String
+  endTime     String
+  dates       Event    @relation(fields: [dateId], references: [eventId])
+  dateId      Int
+}
+
+model Ticket {
+  ticketId      Int    @id @default(autoincrement())
+  eventTicket   Event? @relation(fields: [eventTicketId], references: [eventId])
+  eventTicketId Int
 }
